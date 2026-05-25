@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PWSU | PW Students Union India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght=400;700&family=Outfit:wght@300;400;600;900&display=swap');
+
+        :root {
+            --color-1: #C5FDD3; 
+            --color-2: #94E1B4;
+            --color-3: #69C5A0;
+            --color-4: #45A994; 
+            --color-5: #288D8A;
+            --color-6: #126171;
+            --color-7: #033854; 
+        }
+
+        /* Prevent zooming and overflow */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-7);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .sigma-font { font-family: 'Syncopate', sans-serif; }
+
+        /* Entry Loading Screen Animation */
+        #entry-loader {
+            position: fixed;
+            inset: 0;
+            background-color: #01111a;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), visibility 1s;
+        }
+
+        .loader-bar {
+            width: 120px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            margin-top: 20px;
+        }
+
+        .loader-progress {
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-3), var(--color-1));
+            animation: progress 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes progress {
+            100% { left: 0%; }
+        }
+
+        /* Smooth reveal of content on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 7-Color Gradient Animation */
+        .special-text {
+            background: linear-gradient(90deg, var(--color-1), var(--color-3), var(--color-1), var(--color-5));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: flow 4s linear infinite;
+        }
+        @keyframes flow { to { background-position: 200% center; } }
+
+        /* Unique Co-Founder Master Card */
+        .master-card {
+            background: linear-gradient(135deg, var(--color-6), var(--color-7));
+            border: 1px solid var(--color-4);
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .master-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--color-1), var(--color-4), var(--color-1));
+        }
+
+        /* Parallax Background Style for Mountains */
+        .mountain-bg {
+            background: linear-gradient(to bottom, rgba(3, 56, 84, 0.85), rgba(3, 56, 84, 1)), 
+                        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Taller and highly spacious member grids */
+        .member-slot {
+            background: rgba(18, 97, 113, 0.15);
+            border: 1px solid rgba(197, 253, 211, 0.05);
+            padding: 35px 20px;
+            text-align: center;
+            border-radius: 14px;
+            transition: all 0.4s ease;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .member-slot.filled {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(148, 225, 180, 0.25);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        }
+
+        .rank-badge {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 8px;
+            padding: 4px 8px;
+            background: rgba(148, 225, 180, 0.06);
+            color: var(--color-1);
+            border: 1px solid rgba(148, 225, 180, 0.2);
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            align-self: center;
+        }
+
+        /* Glow animation for WhatsApp link highlight */
+        .whatsapp-glow {
+            border: 2px solid var(--color-2);
+            box-shadow: 0 0 20px rgba(148, 225, 180, 0.3);
+            animation: pulse-glow 2.5s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 10px rgba(148, 225, 180, 0.2);
+                border-color: rgba(148, 225, 180, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(148, 225, 180, 0.6);
+                border-color: var(--color-1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Entry Loader Animation Screen -->
+    <div id="entry-loader">
+        <div class="text-center">
+            <h1 class="sigma-font text-white text-xl tracking-[1em] mb-2">PW STUDENTS</h1>
+            <p class="sigma-font text-[9px] text-emerald-300 tracking-[0.5em] opacity-80 uppercase">UNION</p>
+            <div class="loader-bar mx-auto">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="w-full py-6 px-6 flex justify-between items-center border-b border-white/5 bg-black/10">
+        <div class="sigma-font text-xs font-bold tracking-[0.4em] text-emerald-300">PWSU</div>
+        <a href="https://whatsapp.com/channel/0029VbCtHdPKrWQpmxJi8v3E" target="_blank" rel="noopener noreferrer" 
+           class="text-[9px] font-bold bg-emerald-400/10 border border-emerald-400/30 text-emerald-200 px-4 py-2 rounded-lg tracking-widest uppercase hover:bg-emerald-400/20 transition-all">
+            Join Channel
+        </a>
+    </nav>
+
+    <!-- Hero Showcase Section -->
+    <section class="min-h-[80vh] flex flex-col items-center justify-center px-6 text-center relative">
+        <div class="reveal">
+            <p class="sigma-font text-[9px] tracking-[1em] text-emerald-100 mb-8 uppercase opacity-50">All India Brotherhood</p>
+            <h1 class="sigma-font text-4xl md:text-7xl font-bold mb-10 leading-[0.9] tracking-tighter">
+                PW <span class="special-text">STUDENTS</span> <br> UNION
+            </h1>
+            <div class="flex justify-center space-x-4 mb-10">
+                <div class="h-[1px] w-12 bg-emerald-500/30 self-center"></div>
+                <p class="text-[10px] sigma-font tracking-widest uppercase text-emerald-200">The Original 45</p>
+                <div class="h-[1px] w-12 bg-emerald-500/30 self-center"></div>
+            </div>
+            
+            <!-- Highly Highlighted WhatsApp Channel Link -->
+            <div class="mt-4 max-w-sm mx-auto">
+                <a href="https://whatsapp.com/channel/0029VbCtHdPKrWQpmxJi8v3E" target="_blank" rel="noopener noreferrer" 
+                   class="whatsapp-glow inline-flex items-center gap-3 bg-emerald-500 text-black font-extrabold text-xs px-8 py-4 rounded-xl tracking-wider uppercase transition-transform active:scale-95">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12.004 2C6.51 2 2.014 6.5 2.014 12c0 2.16.7 4.19 1.88 5.88L2 22l4.25-1.12c1.61.88 3.44 1.37 5.75 1.37 5.49 0 9.99-4.5 9.99-10S17.494 2 12.004 2zm6.2 13.92c-.25.7-.97 1.28-1.74 1.48-.52.13-1.2.23-3.48-.72-2.92-1.2-4.81-4.17-4.96-4.37-.15-.2-1.18-1.57-1.18-3s.75-2.13 1.02-2.43c.27-.3.6-.37.8-.37s.4 0 .58.02c.18.02.43-.07.68.53.25.6.85 2.08.92 2.23.08.15.13.33.03.52-.1.2-.15.3-.3.48-.15.18-.32.4-.45.53-.15.15-.3.32-.13.6.17.3 1.05 1.73 2.25 2.8 1.55 1.38 2.85 1.8 3.25 1.97.4.17.63.15.87-.13.23-.28 1-1.17 1.27-1.57.27-.4.55-.33.93-.18.38.15 2.42 1.13 2.53 1.25.12.12.12.57-.13 1.27z"/>
+                    </svg>
+                    Join Official WhatsApp Channel
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mountain Quotes Mindset Section (Updated for Full India) -->
+    <section class="mountain-bg py-32 px-8">
+        <div class="max-w-xl mx-auto space-y-20">
+            <div class="reveal text-center">
+                <p class="text-2xl md:text-3xl font-bold leading-tight mb-4 italic">
+                    "Mountains don't bow to the wind. Leaders don't bow to the struggle."
+                </p>
+                <p class="text-[9px] sigma-font tracking-[0.4em] opacity-40 uppercase">Success Mindset</p>
+            </div>
+            <div class="reveal text-center border-t border-white/5 pt-12">
+                <p class="text-xl font-medium leading-relaxed mb-4 text-emerald-200">
+                    "India sirf ek desh nahi, hum sabke sapno ka Starting Point hai."
+                </p>
+                <p class="text-[8px] sigma-font tracking-[0.3em] opacity-30 uppercase">Dream Base</p>
+            </div>
+            <div class="reveal text-center border-t border-white/5 pt-12">
+                <p class="text-xl font-medium leading-relaxed mb-4 text-emerald-200">
+                    "Mehnat itni Silent rakho, ki tumhari success poore India mein shor macha de."
+                </p>
+                <p class="text-[8px] sigma-font tracking-[0.3em] opacity-30 uppercase">Silent Success</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dedicated Highlight Banner for WhatsApp Channel -->
+    <section class="py-24 px-6 bg-slate-900/50 border-y border-white/5">
+        <div class="max-w-3xl mx-auto text-center reveal space-y-8">
+            <h2 class="sigma-font text-xl md:text-2xl text-emerald-300 tracking-wider">STAY CONNECTED WITH ALL INDIA MEMBERS</h2>
+            <p class="text-slate-300 text-sm max-w-lg mx-auto leading-relaxed">
+                Get real-time updates, resources, and stay in loop with the brotherhood. Tap below to join our verified community channel instantly.
+            </p>
+            <div class="pt-4">
+                <a href="https://whatsapp.com/channel/0029VbCtHdPKrWQpmxJi8v3E" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-3 bg-emerald-400 text-black font-extrabold text-xs px-10 py-5 rounded-2xl tracking-widest uppercase transition-all hover:bg-emerald-300 hover:shadow-[0_0_30px_rgba(148,225,180,0.5)] active:scale-95">
+                    Connect Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership & Command Chain (Only Shivansh Kashyap) -->
+    <section class="py-24 px-6 bg-slate-950">
+        <div class="max-w-lg mx-auto">
+            <h2 class="sigma-font text-center text-[10px] mb-16 tracking-[1em] opacity-30 uppercase">The Command</h2>
+
+            <!-- Co-Founder (Unique styled Master Card) -->
+            <div class="reveal">
+                <div class="master-card p-12 text-center">
+                    <p class="text-[8px] sigma-font tracking-[0.5em] text-emerald-400 mb-4 uppercase">Co-Founder & Mastermind</p>
+                    <h3 class="sigma-font text-3xl md:text-4xl text-white font-bold">Shivansh <br> Kashyap</h3>
+                    <div class="mt-6 inline-block px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded text-[7px] sigma-font tracking-widest text-emerald-300">RANK #01</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Foundation 45 Spacious Ranks Grid -->
+    <section class="py-24 px-6 bg-[#033854]">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="sigma-font text-center text-xs tracking-[0.8em] uppercase mb-16 opacity-30">Foundation 45 Members</h2>
+            <div id="members-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Javascript will load the 45 spacious, clean cards dynamically for high-speed performance -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Credits Footer -->
+    <footer class="py-40 px-6 text-center bg-[#01111a] border-t border-white/5">
+        <div class="reveal">
+            <p class="text-[9px] sigma-font tracking-[1.5em] opacity-20 mb-10 uppercase">Master Architect</p>
+            <h2 class="sigma-font text-4xl md:text-8xl font-black special-text uppercase tracking-tighter">
+                SHIVANSH <br> KASHYAP
+            </h2>
+            <div class="mt-20 opacity-20 text-[7px] sigma-font tracking-widest uppercase">
+                PW Students Union • 2024
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Only keeping Shivansh Kashyap at Rank #1 as requested
+        const members = [
+            "Shivansh kashyap"
+        ];
+
+        // Generate Spacious Member Cards Dynamic Render
+        const grid = document.getElementById('members-grid');
+        let html = '';
+        for(let i = 1; i <= 45; i++) {
+            const memberName = members[i - 1] || "Reserved Slot";
+            const isFilled = !!members[i - 1];
+            html += `
+                <div class="reveal member-slot ${isFilled ? 'filled' : ''}">
+                    <div class="rank-badge">RANK #${String(i).padStart(2, '0')}</div>
+                    <p class="sigma-font text-[10px] ${isFilled ? 'text-emerald-300' : 'text-emerald-100/20'} uppercase tracking-widest leading-relaxed">
+                        ${memberName}
+                    </p>
+                </div>
+            `;
+        }
+        grid.innerHTML = html;
+
+        // Entry Loader Dismissal Animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('entry-loader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.visibility = 'hidden';
+                }, 1000);
+            }, 2100);
+        });
+
+        // Safe Reveal Intersection Observer
+        const observerOptions = {
+            threshold: 0.05,
+            rootMargin: "0px 0px 50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
